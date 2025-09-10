@@ -1,15 +1,19 @@
 import { useState } from "react";
 import { login } from "../api/auth";
 
-export default function LoginForm() {
+interface LoginFromProps {
+    onLoginSuccess: () => void;
+}
+
+const LoginForm: React.FC<LoginFromProps> = ({ onLoginSuccess }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = async (e: React.FormEvent) => {
+    const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const data = await login(username, password);
-            alert(`로그인 성공! 토큰: ${data.token}`);
+            await login(username, password);
+            onLoginSuccess();
         } catch (err) {
             alert(`로그인 실패`);
             console.error(err);
@@ -17,10 +21,14 @@ export default function LoginForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleLogin}>
+            <h2>Sign in to DevLog</h2>
             <input type="text" placeholder="ID" value={username} onChange={(e) => setUsername(e.target.value)} />
             <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
             <button type="submit">Sign In</button>
         </form>
-    )
-}
+    );
+
+};
+
+export default LoginForm

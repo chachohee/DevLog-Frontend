@@ -5,6 +5,7 @@ import { SunIcon, MoonIcon, HomeIcon, Bars3Icon } from "@heroicons/react/24/outl
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import ProfilePage from "./pages/ProfilePage";
 
 const TopBar: React.FC<{
   darkMode: boolean;
@@ -113,11 +114,11 @@ const App: React.FC = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/register" element={<RegisterPage />} />
-          {/* 메뉴바 예시 연결 페이지 */}
+          {/* 메뉴바 연결 페이지 */}
           <Route path="/dashboard" element={<div className="p-4">Dashboard Page</div>} />
           <Route path="/projects" element={<div className="p-4">Projects Page</div>} />
           <Route path="/settings" element={<div className="p-4">Settings Page</div>} />
-          <Route path="/profile" element={<div className="p-4">Profile Page</div>} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </div>
     </Router>

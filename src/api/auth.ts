@@ -33,3 +33,23 @@ export const logout = async () => {
 
     localStorage.removeItem('accessToken');
 }
+
+// 프로필 정보 가져오기
+export const getProfile = async () => {
+    const token = localStorage.getItem("accessToken");
+    const response = await api.get("/auth/profile", {
+        headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+};
+
+// 비밀번호 변경
+export const changePassword = async (currentPassword: string, newPassword: string) => {
+    const token = localStorage.getItem("accessToken");
+    const response = await api.put(
+        "/auth/change-password",
+        { currentPassword, newPassword },
+        { headers: { Authorization: `Bearer ${token}` } }
+    );
+    return response.data;
+};

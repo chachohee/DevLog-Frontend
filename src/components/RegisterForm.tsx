@@ -21,7 +21,8 @@ export default function RegisterForm() {
         try {
             await register(form.username, form.email, form.password, form.nickname);
             alert("회원가입 성공!");
-            navigate("/login"); // 회원가입 성공 후 로그인 페이지로 이동
+            // 회원가입 성공 후 로그인 페이지로 이동
+            navigate("/login", { state: { from: "/" }, replace: true });
         } catch (err) {
             alert("회원가입 실패");
             console.error(err);

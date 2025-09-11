@@ -4,9 +4,10 @@ import { login } from "../api/auth";
 
 interface LoginFormProps {
     onLoginSuccess: () => void;
+    setIsLoggedIn: (value: boolean) => void;
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
+const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess, setIsLoggedIn }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
@@ -19,8 +20,15 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
         e.preventDefault();
         try {
             await login(username, password);
+            setIsLoggedIn(true);
             onLoginSuccess();
-            navigate(from, { replace: true }); // 로그인 전 페이지로 이동
+
+            // 이전 페이지가 로그인이나 회원가입 페이지면 홈으로 이동
+            if (from === "/lolgin" || from === "/register") {
+                navigate("/", { replace: true });
+            } else {
+                navigate(from, { replace: true });
+            }
         } catch (err) {
             alert("로그인 실패");
             console.error(err);

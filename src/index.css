@@ -1,19 +1,16 @@
 @import "tailwindcss";
 @import "flowbite";
 
-/* 기본 body 스타일 */
-body {
+/* body 기본 스타일 + 다크모드 적용 */
+html,
+body,
+#root {
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: white;
-    color: #111827;
-    /* gray-900 */
-
-    /* 다크모드 색상 */
 }
 
-.dark body {
-    background-color: black;
-    color: white;
+body {
+    @apply bg-white text-gray-900 dark:bg-black dark:text-white;
+    font-family: system-ui, sans-serif;
 }

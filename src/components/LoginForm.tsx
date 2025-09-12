@@ -20,7 +20,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
         e.preventDefault();
         try {
             const res = await login(username, password);
-            doLogin(res.token);
+            doLogin(res.token, res.username);
             onLoginSuccess();
             navigate(from === "/login" || from === "/register" ? "/" : from, { replace: true });
         } catch (err) {

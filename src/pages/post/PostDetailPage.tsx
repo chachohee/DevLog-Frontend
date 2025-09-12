@@ -7,7 +7,7 @@ import { useAuth } from "../../context/AuthContext";
 export default function PostDetailPage() {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
-    const { isLoggedIn, token } = useAuth();
+    const { isLoggedIn, token, username } = useAuth();
     const [post, setPost] = useState<Post | null>(null);
 
     useEffect(() => {
@@ -33,10 +33,20 @@ export default function PostDetailPage() {
             <h1 className="text-2xl font-bold mb-2">{post.title}</h1>
             <p className="text-gray-600 dark:text-gray-300 mb-4">By {post.author} | {new Date(post.createdAt).toLocaleDateString()}</p>
             <p className="whitespace-pre-line">{post.content}</p>
-            {isLoggedIn && (
+            {isLoggedIn && username === post.author && (
                 <div className="flex gap-2 mt-6">
-                    <Link to={`/posts/${post.id}/edit`} className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition">Edit</Link>
-                    <button onClick={handleDelete} className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition">Delete</button>
+                    <Link
+                        to={`/posts/${post.id}/edit`}
+                        className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition"
+                    >
+                        Edit
+                    </Link>
+                    <button
+                        onClick={handleDelete}
+                        className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
+                    >
+                        Delete
+                    </button>
                 </div>
             )}
         </div>

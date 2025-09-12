@@ -17,7 +17,7 @@ export const register = async (
 
 export const login = async (username: string, password: string) => {
     const response = await api.post('/auth/login', { username, password });
-    const { token } = response.data;
+    const { token, username: loggedInUser } = response.data;
 
     // 로컬스토리지에 토큰 저장
     localStorage.setItem('accessToken', token);

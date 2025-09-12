@@ -21,6 +21,7 @@ export const login = async (username: string, password: string) => {
 
     // 로컬스토리지에 토큰 저장
     localStorage.setItem('accessToken', token);
+    localStorage.setItem('username', loggedInUser);
 
     return response.data;
 };

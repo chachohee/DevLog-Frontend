@@ -9,6 +9,12 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
 
+// 게시글 CRUD 페이지
+import PostsPage from "./pages/post/PostPage";
+import PostDetailPage from "./pages/post/PostDetailPage";
+import PostCreatePage from "./pages/post/PostCreatePage";
+import PostEditPage from "./pages/post/PostEditPage";
+
 const App: React.FC = () => {
   return (
     <AuthProvider>
@@ -22,8 +28,13 @@ const App: React.FC = () => {
               <Route path="/register" element={<RegisterPage />} />
               <Route path="/profile" element={<ProfilePage />} />
 
+              {/* 게시판 관련 페이지 */}
+              <Route path="/dashboard" element={<PostsPage />} /> {/* Dashboard → PostsPage */}
+              <Route path="/posts/create" element={<PostCreatePage />} />
+              <Route path="/posts/:id" element={<PostDetailPage />} />
+              <Route path="/posts/:id/edit" element={<PostEditPage />} />
+
               {/* 임시 페이지 */}
-              <Route path="/dashboard" element={<div className="p-4">Dashboard Page</div>} />
               <Route path="/projects" element={<div className="p-4">Projects Page</div>} />
               <Route path="/settings" element={<div className="p-4">Settings Page</div>} />
             </Routes>

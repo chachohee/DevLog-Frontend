@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { register, login as loginApi } from "../api/auth";
-import { useAuth } from "../context/useAuth";
+import { useNavigate } from "react-router-dom";
+import { register } from "../api/auth";
 
 const RegisterForm: React.FC = () => {
-  const { login } = useAuth();
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
@@ -22,19 +22,15 @@ const RegisterForm: React.FC = () => {
       // 회원가입 API 호출
       await register(username, email, password, nickname);
 
-      // 회원가입 후 로그인 API 호출
-      const loginRes = await loginApi(username, password);
-
-      // 로그인 상태 갱신
-      login(loginRes.token, loginRes.username);
-
-      alert("Registration successful!");
+      alert("Registration successful! Please log in.");
       setUsername("");
-        setEmail("");
-        setNickname("");
-        setPassword("");
-        setConfirmPassword("");
-      window.history.back(); // 이전 페이지로 이동
+      setEmail("");
+      setNickname("");
+      setPassword("");
+      setConfirmPassword("");
+      
+      // 로그인 페이지로 리다이렉트
+      navigate("/login");
     } catch (err) {
       console.error(err);
       alert("Registration failed.");
@@ -42,64 +38,79 @@ const RegisterForm: React.FC = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 text-gray-900">
-      <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300 text-black"
-        required
-      />
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300 text-black"
-        required
-      />
-      <input
-        type="text"
-        placeholder="Nickname"
-        value={nickname}
-        onChange={(e) => setNickname(e.target.value)}
-        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300 text-black"
-        required
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300 text-black"
-        required
-      />
-      <input
-        type="password"
-        placeholder="Confirm Password"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-        className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300 text-black"
-        required
-      />
+    <div>
+      <form onSubmit={handleSubmit} className="space-y-4 text-gray-900">
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300 text-black"
+          required
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300 text-black"
+          required
+        />
+        <input
+          type="text"
+          placeholder="Nickname"
+          value={nickname}
+          onChange={(e) => setNickname(e.target.value)}
+          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300 text-black"
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300 text-black"
+          required
+        />
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+          className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300 text-black"
+          required
+        />
 
-      <div className="flex gap-2">
-        <button
-          type="submit"
-          className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-        >
-          Sign Up
-        </button>
-        <button
-          type="button"
-          onClick={() => window.history.back()}
-          className="w-full px-4 py-2 bg-gray-200 text-gray-900 rounded-md hover:bg-gray-300 transition-colors"
-        >
-          Cancel
-        </button>
+        <div className="flex gap-2">
+          <button
+            type="submit"
+            className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+          >
+            Sign Up
+          </button>
+          <button
+            type="button"
+            onClick={() => navigate("/login")}
+            className="w-full px-4 py-2 bg-gray-200 text-gray-900 rounded-md hover:bg-gray-300 transition-colors"
+          >
+            Cancel
+          </button>
+        </div>
+      </form>
+      
+      <div className="mt-4 text-center">
+        <p className="text-gray-600">
+          Already have an account?{" "}
+          <button
+            type="button"
+            onClick={() => navigate("/login")}
+            className="text-blue-600 hover:text-blue-800 underline"
+          >
+            Sign in
+          </button>
+        </p>
       </div>
-    </form>
+    </div>
   );
 };
 

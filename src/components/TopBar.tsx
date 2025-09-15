@@ -5,7 +5,7 @@ import { useAuth } from "../context/useAuth";
 
 const TopBar: React.FC = () => {
   const navigate = useNavigate();
-  const { isLoggedIn, logout } = useAuth();
+  const { isLoggedIn, logout, username } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -52,45 +52,53 @@ const TopBar: React.FC = () => {
 
       {/* 오른쪽: 사용자 메뉴 */}
       {isLoggedIn && (
-        <div className="relative">
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="px-3 py-1 bg-gray-100 rounded hover:bg-gray-200 transition"
-          >
-            <Bars3Icon className="w-6 h-6 text-gray-900 hover:text-blue-600 transition-colors" />
-          </button>
+        <div className="flex items-center gap-3">
+          {/* 환영 문구 */}
+          <div className="text-sm text-gray-700">
+            <span className="font-semibold text-blue-600">{username}</span>님
+          </div>
+          
+          {/* 메뉴 버튼 */}
+          <div className="relative">
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="px-3 py-1 bg-gray-100 rounded hover:bg-gray-200 transition"
+            >
+              <Bars3Icon className="w-6 h-6 text-gray-900 hover:text-blue-600 transition-colors" />
+            </button>
 
-          {menuOpen && (
-            <div className="absolute right-0 mt-2 w-44 bg-white rounded shadow-lg py-1 z-50">
-              <button
-                onClick={() => {
-                  setMenuOpen(false);
-                  navigate("/profile");
-                }}
-                className="block w-full text-left px-4 py-2 text-gray-900 hover:bg-gray-100 transition"
-              >
-                My Profile
-              </button>
-              <button
-                onClick={() => {
-                  setMenuOpen(false);
-                  navigate("/settings");
-                }}
-                className="block w-full text-left px-4 py-2 text-gray-900 hover:bg-gray-100 transition"
-              >
-                Settings
-              </button>
-              <button
-                onClick={() => {
-                  logout();
-                  setMenuOpen(false);
-                }}
-                className="block w-full text-left px-4 py-2 text-gray-900 hover:bg-gray-100 transition"
-              >
-                Sign out
-              </button>
-            </div>
-          )}
+            {menuOpen && (
+              <div className="absolute right-0 mt-2 w-44 bg-white rounded shadow-lg py-1 z-50">
+                <button
+                  onClick={() => {
+                    setMenuOpen(false);
+                    navigate("/profile");
+                  }}
+                  className="block w-full text-left px-4 py-2 text-gray-900 hover:bg-gray-100 transition"
+                >
+                  My Profile
+                </button>
+                <button
+                  onClick={() => {
+                    setMenuOpen(false);
+                    navigate("/settings");
+                  }}
+                  className="block w-full text-left px-4 py-2 text-gray-900 hover:bg-gray-100 transition"
+                >
+                  Settings
+                </button>
+                <button
+                  onClick={() => {
+                    logout();
+                    setMenuOpen(false);
+                  }}
+                  className="block w-full text-left px-4 py-2 text-gray-900 hover:bg-gray-100 transition"
+                >
+                  Sign out
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>

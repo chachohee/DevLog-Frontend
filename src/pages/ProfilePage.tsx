@@ -5,7 +5,7 @@ import { useAuth } from "../context/useAuth";
 
 export default function ProfilePage() {
   const navigate = useNavigate();
-  const { logout } = useAuth();
+  const { logout, isLoggedIn, token } = useAuth();
   const [profile, setProfile] = useState<{ username: string; email: string; nickname: string } | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -16,8 +16,8 @@ export default function ProfilePage() {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const token = localStorage.getItem("accessToken");
-      if (!token) {
+      // AuthProvider에서 관리하는 인증 상태를 확인
+      if (!isLoggedIn || !token) {
         navigate("/login");
         return;
       }
@@ -34,7 +34,7 @@ export default function ProfilePage() {
     };
 
     fetchProfile();
-  }, [navigate]);
+  }, [navigate, isLoggedIn, token]);
 
   const handleChangePassword = async (e: React.FormEvent) => {
     e.preventDefault();

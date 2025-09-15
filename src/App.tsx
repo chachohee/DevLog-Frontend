@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext";
-import { DarkModeProvider } from "./context/DarkModeContext";
+import { AuthProvider } from "./context/AuthProvider";
 import TopBar from "./components/TopBar";
 
 import HomePage from "./pages/HomePage";
@@ -18,7 +17,6 @@ import PostEditPage from "./pages/post/PostEditPage";
 const App: React.FC = () => {
   return (
     <AuthProvider>
-      <DarkModeProvider>
         <Router>
           <TopBar />
           <div className="min-h-screen pt-14 bg-gray-50 dark:bg-black transition-colors text-gray-900 dark:text-white">
@@ -40,7 +38,6 @@ const App: React.FC = () => {
             </Routes>
           </div>
         </Router>
-      </DarkModeProvider>
     </AuthProvider>
   );
 };

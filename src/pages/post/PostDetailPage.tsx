@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { getPost, deletePost } from "../../api/posts";
 import type { Post } from "../../types/Post";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../context/useAuth";
 
 export default function PostDetailPage() {
     const { id } = useParams<{ id: string }>();

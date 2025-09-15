@@ -1,34 +1,34 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/useAuth";
 
 export default function HomePage() {
   const { isLoggedIn, logout } = useAuth();
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 dark:bg-black text-gray-900 dark:text-white">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-gray-900">
       <h1 className="text-4xl font-bold mb-6">DevLog Homepage</h1>
 
       {!isLoggedIn ? (
         <div className="flex gap-4">
           <Link
             to="/login"
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+            className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
           >
-            Sign in
+            Sign In
           </Link>
           <Link
             to="/register"
-            className="px-4 py-2 bg-gray-300 dark:bg-gray-700 text-gray-900 dark:text-gray-100 rounded hover:bg-gray-400 dark:hover:bg-gray-600 transition"
+            className="px-4 py-2 bg-gray-200 text-gray-900 rounded-md hover:bg-gray-300 transition-colors"
           >
-            Sign up
+            Sign Up
           </Link>
         </div>
       ) : (
         <button
           onClick={logout}
-          className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
+          className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
         >
-          Sign out
+          Sign Out
         </button>
       )}
     </div>

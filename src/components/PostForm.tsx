@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 interface PostFormProps {
     initialTitle?: string;
@@ -9,6 +9,12 @@ interface PostFormProps {
 const PostForm: React.FC<PostFormProps> = ({ initialTitle = "", initialContent = "", onSubmit }) => {
     const [title, setTitle] = useState(initialTitle);
     const [content, setContent] = useState(initialContent);
+
+    // initialTitle과 initialContent가 변경될 때 state 업데이트
+    useEffect(() => {
+        setTitle(initialTitle);
+        setContent(initialContent);
+    }, [initialTitle, initialContent]);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();

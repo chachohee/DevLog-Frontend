@@ -24,7 +24,7 @@ export default function PostDetailPage() {
         if (!token) return alert("로그인이 필요합니다.");
         if (confirm("삭제하시겠습니까?")) {
             await deletePost(post.id);
-            navigate("/posts");
+            navigate("/dashboard");
         }
     };
 

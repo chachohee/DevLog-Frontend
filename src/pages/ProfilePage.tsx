@@ -5,7 +5,7 @@ import { useAuth } from "../context/useAuth";
 
 export default function ProfilePage() {
   const navigate = useNavigate();
-  const { logout, isLoggedIn, token } = useAuth();
+  const { logout, isLoggedIn, token, loading: authLoading } = useAuth();
   const [profile, setProfile] = useState<{ username: string; email: string; nickname: string } | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -16,14 +16,25 @@ export default function ProfilePage() {
 
   useEffect(() => {
     const fetchProfile = async () => {
+      console.log("ProfilePage useEffect 실행:", { authLoading, isLoggedIn, token: !!token });
+      
+      // AuthProvider의 로딩이 완료될 때까지 대기
+      if (authLoading) {
+        console.log("AuthProvider 로딩 중...");
+        return;
+      }
+
       // AuthProvider에서 관리하는 인증 상태를 확인
       if (!isLoggedIn || !token) {
+        console.log("인증되지 않은 상태 - 로그인 페이지로 이동");
         navigate("/login");
         return;
       }
 
+      console.log("프로필 데이터 로드 시작");
       try {
         const data = await getProfile();
+        console.log("프로필 데이터 로드 성공:", data);
         setProfile(data);
       } catch (err) {
         console.error("프로필 불러오기 실패", err);
@@ -34,7 +45,7 @@ export default function ProfilePage() {
     };
 
     fetchProfile();
-  }, [navigate, isLoggedIn, token]);
+  }, [navigate, isLoggedIn, token, authLoading]);
 
   const handleChangePassword = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,7 +65,7 @@ export default function ProfilePage() {
     }
   };
 
-  if (loading) return <div className="text-center text-gray-500 mt-20">Loading...</div>;
+  if (authLoading || loading) return <div className="text-center text-gray-500 mt-20">Loading...</div>;
   if (!profile) return <div className="text-center text-gray-500 mt-20">No profile data</div>;
 
   return (

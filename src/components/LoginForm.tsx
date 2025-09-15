@@ -21,7 +21,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
       // AuthProvider의 login 함수를 호출하여 인증 상태 업데이트
       setAuthState(loginRes.token, loginRes.username);
       
-      alert("Login successful!");
+      alert("로그인 성공!");
       setUsername("");
       setPassword("");
       
@@ -31,9 +31,19 @@ const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess }) => {
         // 기본적으로 홈페이지로 이동
         navigate("/");
       }
-    } catch (err) {
-      console.error(err);
-      alert("Login failed. Please check your credentials.");
+    } catch (err: any) {
+      console.error("로그인 에러:", err);
+      
+      // 에러 타입에 따른 메시지 분기
+      if (err.response?.status === 403 || err.response?.status === 401) {
+        alert("아이디 또는 비밀번호가 올바르지 않습니다.");
+      } else if (err.code === 'ERR_NETWORK') {
+        alert("네트워크 연결을 확인해주세요. 백엔드 서버가 실행 중인지 확인해주세요.");
+      } else if (err.response?.status >= 500) {
+        alert("서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+      } else {
+        alert("로그인에 실패했습니다. 다시 시도해주세요.");
+      }
     }
   };
 

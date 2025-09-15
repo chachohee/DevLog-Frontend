@@ -65,9 +65,21 @@ const RegisterForm: React.FC = () => {
       
       // 로그인 페이지로 리다이렉트
       navigate("/login");
-    } catch (err) {
-      console.error(err);
-      alert("회원가입에 실패했습니다.");
+    } catch (err: any) {
+      console.error("회원가입 에러:", err);
+      
+      // 에러 타입에 따른 메시지 분기
+      if (err.response?.status === 409) {
+        alert("이미 존재하는 사용자명 또는 이메일입니다.");
+      } else if (err.response?.status === 400) {
+        alert("입력 정보를 확인해주세요.");
+      } else if (err.code === 'ERR_NETWORK') {
+        alert("네트워크 연결을 확인해주세요. 백엔드 서버가 실행 중인지 확인해주세요.");
+      } else if (err.response?.status >= 500) {
+        alert("서버 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+      } else {
+        alert("회원가입에 실패했습니다. 다시 시도해주세요.");
+      }
     }
   };
 

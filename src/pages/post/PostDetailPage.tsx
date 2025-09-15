@@ -3,7 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { getPost, deletePost } from "../../api/posts";
 import type { Post } from "../../types/Post";
 import { useAuth } from "../../context/useAuth";
-import CommentSection from "../../components/CommentSection";
+import CommentPage from "./CommentPage";
 
 export default function PostDetailPage() {
     const { id } = useParams<{ id: string }>();
@@ -51,7 +51,9 @@ export default function PostDetailPage() {
                 </div>
             )}
             {/* 댓글 섹션 */}
-            <CommentSection postId={post.id} />
+            <div className="mt-10">
+                <CommentPage postId={post.id} />
+            </div>
         </div>
     );
 }

@@ -1,69 +1,68 @@
-# React + TypeScript + Vite
+# DevLog Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> DevLog 프로젝트의 프론트엔드 클라이언트  
+> Vite + React + TypeScript 기반, TailwindCSS + Flowbite UI 적용
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ 주요 기능
 
-## Expanding the ESLint configuration
+- 로그인 / 회원가입 화면
+- 대시보드 (게시글 & 통계 확인)
+- 새 글 작성 / 수정 / 삭제
+- 프로젝트 관리 페이지
+- 사용자 프로필 및 설정 페이지
+- 백엔드 API 연동
+- AI 보조 기능 (요약, 교정, 태그 추천 UI)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🖼️ 화면 예시
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+> (추후 스크린샷 / GIF 추가 예정)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- 홈 화면
+- 대시보드
+- 새 글 작성
+- 프로필 & 설정
+
+---
+
+## 🛠 기술 스택
+
+- Vite
+- React + TypeScript
+- TailwindCSS
+- Flowbite
+- Heroicons
+- Axios (API 연동)
+
+---
+
+## 🚀 실행 방법
+
+### 1. 레포지토리 클론
+```bash
+git clone https://github.com/chachohee/DevLog-Frontend.git
+cd DevLog-Frontend
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 2. 패키지 설치
+```bash
+npm install
 ```
+
+### 3. 실행
+```bash
+npm run dev
+```
+실행 후 기본 주소는 http://localhost:5173 입니다.
+
+---
+
+## 📌 앞으로의 계획
+
+- 글 작성 시 AI 요약/교정/태그 추천 UI 반영
+- 코드 하이라이팅 및 자동 요약 기능 강화
+- 블로그 Q&A 챗봇 인터페이스 추가
+- 추천 글 & 트렌드 분석 화면 제공

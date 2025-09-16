@@ -118,7 +118,7 @@ export default function CommentPage({ postId }: Props) {
 
     return (
         <div className="mt-6">
-            <h3 className="text-xl font-bold mb-4 border-b pb-2 text-gray-800 dark:text-gray-100">댓글</h3>
+            <h3 className="text-lg font-semibold mb-4 text-gray-800 dark:text-gray-100">댓글</h3>
             {comments.map((comment) => (
                 <CommentItem
                     key={comment.id}

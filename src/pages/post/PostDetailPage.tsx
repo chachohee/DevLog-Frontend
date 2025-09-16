@@ -48,7 +48,7 @@ export default function PostDetailPage() {
                 <h1 className="text-3xl font-bold text-gray-800 mb-4">{post.title}</h1>
 
                 {/* 작성 정보 */}
-                <div className="flex justify-between items-center text-sm text-gray-500 border-b border-gray-300 pb-4 mb-6">
+                <div className="flex justify-between items-center text-sm text-gray-500 border-b border-gray-100 pb-4 mb-6">
                     <p>작성자: <span className="font-medium text-gray-700">{post.author}</span></p>
                     <p>{new Date(post.createdAt).toLocaleDateString()}</p>
                 </div>
@@ -79,7 +79,8 @@ export default function PostDetailPage() {
                 )}
 
                 {/* 댓글 섹션 */}
-                <div className="border-t border-gray-100 pt-6">
+                {/* <div className="border-t border-gray-300 pt-6"> */}
+                <div className="pt-6">
                     <CommentPage postId={post.id} />
                 </div>
             </div>
